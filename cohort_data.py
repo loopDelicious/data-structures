@@ -15,16 +15,18 @@ def unique_houses(filename):
     """
 
     cohort_data = open(filename)
-    houses = set()
-    for line in cohort_data:
-        split_line = line.split("|")
-        houses.add(split_line[2])
 
-    # Code goes here
+    houses = set()  # Created empty set where house names will go
+    for line in cohort_data:  
+        split_line = line.split("|")   # Separate each line into a list
+        houses.add(split_line[2])  # Grabs the 2nd index item of the line which is House name
+
     cohort_data.close()
+
     return houses
 
-print unique_houses("cohort_data.txt")
+# TEST:
+# print unique_houses("cohort_data.txt")
 
 def sort_by_cohort(filename):
     """TODO: Sort students by cohort.
@@ -36,17 +38,36 @@ def sort_by_cohort(filename):
         ex. all_students = [winter_15, spring_15, summer_15, tas]
 
     """
-
+    #create empty lists
     all_students = []
     winter_15 = []
     spring_15 = []
     summer_15 = []
     tas = []
 
-    # Code goes here
+    cohort_data = open(filename)
+
+    for line in cohort_data:
+        clean_line = line.rstrip().split("|") #removed characters at the end of each line and parsed by pipe
+
+        #sppending each name by cohort or ta
+        if clean_line[4] == "Winter 2015":
+            winter_15.append("%s %s" % (clean_line[0],clean_line[1]))
+        elif clean_line[4] == "Spring 2015":
+            spring_15.append("%s %s" % (clean_line[0],clean_line[1]))
+        elif clean_line[4] == "Summer 2015":
+            summer_15.append("%s %s" % (clean_line[0],clean_line[1]))
+        elif clean_line[4] == "TA":
+            tas.append("%s %s" % (clean_line[0],clean_line[1]))
+
+    all_students = [winter_15, spring_15, summer_15, tas] #adding all lists to master all_students list
+
+    cohort_data.close()
 
     return all_students
 
+# TEST: 
+# print sort_by_cohort("cohort_data.txt")
 
 def students_by_house(filename):
     """TODO: Sort students by house.
