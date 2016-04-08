@@ -99,8 +99,32 @@ def students_by_house(filename):
     tas = []
     instructors = []
 
-    # Code goes here
+    cohort_data = open(filename)
 
+    for line in cohort_data:
+        clean_line = line.rstrip().split("|")
+        if clean_line[2] == "Gryffindor":
+            gryffindor.append(clean_line[1])
+        elif clean_line[2] == "Hufflepuff":
+            hufflepuff.append(clean_line[1])
+        elif clean_line[2] =="Slytherin":
+            slytherin.append(clean_line[1])
+        elif clean_line[2] =="Dumbledore's Army":
+            dumbledores_army.append(clean_line[1])
+        elif clean_line[2] =="Order of the Phoenix":
+            order_of_the_phoenix.append(clean_line[1])
+        elif clean_line[2] =="Ravenclaw":
+            ravenclaw.append(clean_line[1])
+        else:
+            if clean_line[4] == "TA":
+                tas.append(clean_line[1],clean_line[0])
+            else:
+                instructors.append(clean_line[1],clean_line[0])
+
+    all_students = [gryffindor, hufflepuff, slytherin, dumbledores_army, order_of_the_phoenix, ravenclaw, tas, instructors]
+
+    cohort_data.close()
+    
     return all_students
 
 
